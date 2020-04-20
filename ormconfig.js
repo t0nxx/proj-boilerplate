@@ -1,14 +1,13 @@
 module.exports = {
    "type": "mysql",
-
-   "host": "localhost",
-   "port": 3306,
-   "username": "root",
-   "password": "tonitonitoni",
-   "database": "test_test",
-   "synchronize": true,
-   "logging": true,
-   "cache" : true,
+   "host": process.env.DBHOST,
+   "port": process.env.DBPORT,
+   "username": process.env.DBUSERNAME,
+   "password": process.env.DBPASSWORD,
+   "database": process.env.DBNAME,
+   "synchronize": process.env.DBSYNC,
+   "logging": process.env.DBLOG,
+   "cache": true,
    "charset": "UTF8MB4_GENERAL_CI",
    "entities": [
       // for dev i'll use src folder , in prod i'll user dist folder , it 'll be set as DB_Dir in package.json

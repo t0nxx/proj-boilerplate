@@ -1,21 +1,19 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/UserController';
 import { AuthMiddleWare } from '../middlewares/AuthMiddleWare';
-import { UploadToS3 } from '../helpers/awsUploader';
+import { asyncWrapper } from 'src/helpers/asyncWrapper';
 
 const router = Router();
 const userController = new UserController();
-
 // for auth . add AuthMiddleWare
 
-router.get('/', userController.all);
+router
+    .get('/', asyncWrapper(userController.all))
 
-router.post('/new', userController.create);
+    .get('/:id', asyncWrapper(userController.showOne))
 
-router.get('/:id', userController.showOne);
+    .patch('/:id', AuthMiddleWare, asyncWrapper(userController.update))
 
-router.patch('/:id', AuthMiddleWare, userController.update);
-
-router.delete('/:id', AuthMiddleWare, userController.delete);
+    .delete('/:id', AuthMiddleWare, asyncWrapper(userController.delete));
 
 export default router;

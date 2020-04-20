@@ -1,26 +1,34 @@
 version: '2.2'
 services:
-  casting-db:
-    container_name: casting-db
+  project-db-mysql:
+    container_name: project-db-mysql
     image: "mysql:5.7.24"
     environment:
       MYSQL_ROOT_PASSWORD: tonitonitoni
       MYSQL_USER: root
-      MYSQL_DATABASE: "casting_dev"
+      MYSQL_DATABASE: "project_dev"
     ports:
-      - 3306:3306
+      - 3307:3306
     healthcheck:
       test: "mysql --password=tonitonitoni --user=root -e 'SELECT VERSION();SELECT NOW()'"
       interval: 5s
       retries: 10
       timeout: 5s
 
+  project-db-mongo:
+    container_name: project-db-mongo
+    image: mongo
+    volumes:
+      - /data/mongodb/db:/data/db
+    ports:
+      - "27017:27017"
+
   backend:
-    container_name: casting_backend
+    container_name: project_backend
     depends_on:
-      casting-db:
+      project-db-mysql:
         condition: service_healthy
     restart: always
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3000"

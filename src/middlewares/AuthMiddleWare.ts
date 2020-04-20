@@ -1,17 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import { JWTSECRET } from '../config/Secrets';
-import { User } from '../models/user';
+import { UserModel } from '../models/user';
 
 
 export const AuthMiddleWare = async (req, res: Response, next: NextFunction) => {
-    const userRepository = getRepository(User);
+    const userRepository = getRepository(UserModel);
     try {
         if (!req.headers.authorization) { throw new Error('Not Token Provided'); }
         const token = req.headers.authorization;
         if (!token) { throw new Error('Not authorized'); }
-        const decode: any = await verify(token, JWTSECRET);
+        const decode: any = verify(token, process.env.JWTSECRET);
         const user = await userRepository.findOne({ email: decode.email });
         if (!user) { throw new Error('Not authorized'); }
         req.user = user;

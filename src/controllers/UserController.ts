@@ -1,10 +1,9 @@
-import { getRepository } from 'typeorm';
 import { NextFunction, Request, Response } from 'express';
-import { UploadToS3 } from '../helpers/awsUploader';
-import { User } from '../models/user';
-import { transformAndValidate } from 'class-transformer-validator';
-import { generateJwtToken } from 'src/helpers/GnerateJwt';
-import { hash } from 'bcryptjs';
+import { getRepository, createQueryBuilder } from 'typeorm';
+import { AppErrorCode, CustomError } from '../helpers/http.error.response';
+import { UserModel } from '../models/user';
+import { ApplyPagination } from '../helpers/pagination';
+import { OkHttp } from '../helpers/http.response';
 
 export class UserController {
 
@@ -13,46 +12,11 @@ export class UserController {
     */
 
     async all(request: Request, response: Response, next: NextFunction) {
-
-        const userRepository = getRepository(User);
-        try {
-            const data = await userRepository.find();
-            response.status(200).send({ data });
-        } catch (error) {
-            const err = error[0] ? Object.values(error[0].constraints) : [error.message];
-            return response.status(400).send({ success: false, error: err });
-        }
-
-    }
-
-    /**
-     * Create new One
-     */
-
-    async create(request: Request, response: Response, next: NextFunction) {
-
-        const userRepository = getRepository(User);
-        try {
-            const validateBody = await transformAndValidate(User, request.body);
-
-            const emailExist = await userRepository.findOne({ email: request.body.email });
-
-            if (emailExist) { throw new Error('email already exist'); }
-            /* business logic validation */
-            const newUser = new User();
-            Object.assign(newUser, validateBody);
-            newUser.password = await hash(request.body.password, 10);
-            const create = await userRepository.save(newUser);
-
-            const token = await generateJwtToken({
-                id: create.id,
-                email: create.email,
-            });
-            response.status(200).send({ data: { id: create.id, email: create.email }, token });
-        } catch (error) {
-            const err = error[0] ? Object.values(error[0].constraints) : [error.message];
-            return response.status(400).send({ success: false, error: err });
-        }
+        const userRepository = getRepository(UserModel);
+        const query = createQueryBuilder(UserModel, 'user')
+            .select(['user.id', 'user.email']);
+        const data = await ApplyPagination(request, response, next, query);
+        OkHttp(response, data);
     }
 
     /**
@@ -60,52 +24,36 @@ export class UserController {
      */
 
     async showOne(request: Request, response: Response, next: NextFunction) {
-        const userRepository = getRepository(User);
-        try {
-            const user = await userRepository.findOne({ id: parseInt(request.params.id, 10) });
-            if (!user) { throw new Error('user Not Found'); }
-            return response.status(200).send({ data: user });
-        } catch (error) {
-            /**
-             * if ther error from class validator , return first object . else message of error
-             */
-            const err = error[0] ? Object.values(error[0].constraints) : [error.message];
-            return response.status(400).send({ success: false, error: err });
+        const userRepository = getRepository(UserModel);
+        if (!request.params.id || isNaN(parseInt(request.params.id, 10))) {
+            throw new CustomError({ message: 'invalid id parameter', status: 400, errCode: AppErrorCode.InvalidType });
         }
-    }
+        const { password, ...userData } = await userRepository.findOne({ id: parseInt(request.params.id, 10) });
+        if (!userData.id) { throw new CustomError({ message: 'provided id not exist', status: 404, errCode: AppErrorCode.RelatedEntityNotFound }); }
+        OkHttp(response, { data: { ...userData } });
 
+    }
 
     /**
      * update one
      */
 
     async update(request: Request, response: Response, next: NextFunction) {
-        const userRepository = getRepository(User);
-        try {
-            const user = await userRepository.findOne({ id: parseInt(request['user'].id, 10) });
-            if (!user) { throw new Error('user Not Found'); }
-            await userRepository.update({ id: user.id }, request.body);
-            return response.status(200).send({});
-        } catch (error) {
-            const err = error[0] ? Object.values(error[0].constraints) : [error.message];
-            return response.status(400).send({ success: false, error: err });
-        }
+        const userRepository = getRepository(UserModel);
+        const user = await userRepository.findOne({ id: parseInt(request['user'].id, 10) });
+        if (!user) { throw new Error('user Not Found'); }
+        await userRepository.update({ id: user.id }, request.body);
+        OkHttp(response);
     }
-
 
     /**
      * delete one
      */
     async delete(request: Request, response: Response, next: NextFunction) {
-        const userRepository = getRepository(User);
-        try {
-            const user = await userRepository.findOne({ id: parseInt(request.params.id, 10) });
-            if (!user) { throw new Error('user Not Found'); }
-            await userRepository.remove(user);
-            return response.status(200).send({});
-        } catch (error) {
-            const err = error[0] ? Object.values(error[0].constraints) : [error.message];
-            return response.status(400).send({ success: false, error: err });
-        }
+        const userRepository = getRepository(UserModel);
+        const user = await userRepository.findOne({ id: parseInt(request.params.id, 10) });
+        if (!user) { throw new Error('user Not Found'); }
+        await userRepository.remove(user);
+        OkHttp(response);
     }
 }

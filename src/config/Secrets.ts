@@ -1,11 +1,20 @@
+
 /**
- * jwt secet key
+ * you can but here all your application secrets
  */
 
-export const JWTSECRET = 'MYSECRETJWT';
+export const JWTSECRET = '';
 
-export const AwsAccessKeyId = 'AKIAWSGMMQIXOWI2OKPS';
+export const AwsAccessKeyId = '';
 
-export const AwsSecretAccessKey = 'NOe4wc4iDYF3eOLJBx03NKN+ga4eYXXWUhGWzG+0';
+export const AwsSecretAccessKey = '';
 
-export const AwsRegion = 'eu-central-1';
+export const AwsRegion = '';
+
+export const AwsS3BucketName = '';
+
+export const MailGunApiKey = '';
+
+export const MailGunDomain = '';
+
+export const MailGunHost = '';
