@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { AuthController } from '../controllers/AuthController';
 import { AuthMiddleWare } from '../middlewares/AuthMiddleWare';
 import { UploadToS3 } from '../helpers/awsUploader';
-import { asyncWrapper } from 'src/helpers/asyncWrapper';
+import { asyncWrapper } from '../helpers/asyncWrapper';
 
 const router = Router();
 const authController = new AuthController();

@@ -1,0 +1,159 @@
+{ msg: 'email already exist',
+  errCode: 3,
+  status: 400,
+  field: undefined,
+  level: 'error',
+  message:
+   'email already exist - /auth/register/ - POST - ::1email already exist',
+  stack:
+   'Error: email already exist\n    at /home/t0ni/Desktop/proj-skeleton/src/controllers/AuthController.ts:41:33\n    at Generator.next (<anonymous>)\n    at fulfilled (/home/t0ni/Desktop/proj-skeleton/src/controllers/AuthController.ts:5:58)\n    at process._tickCallback (internal/process/next_tick.js:68:7)',
+  timestamp: '2020-04-21T03:05:42.906Z' }
+{ '0':
+   ValidationError {
+     target: UserModel { email: 'h@h.com', password: '1234' },
+     value: '1234',
+     property: 'password',
+     children: [],
+     constraints:
+      { minLength: 'password must be longer than or equal to 6 characters' } },
+  level: 'error',
+  message: 'undefined - /auth/register/ - POST - ::1',
+  timestamp: '2020-04-21T03:06:10.795Z' }
+{ msg: 'invalid email / password',
+  errCode: 5,
+  status: 400,
+  field: undefined,
+  level: 'error',
+  message:
+   'invalid email / password - /auth/login/ - POST - ::1invalid email / password',
+  stack:
+   'Error: invalid email / password\n    at /home/t0ni/Desktop/proj-skeleton/src/controllers/AuthController.ts:24:33\n    at Generator.next (<anonymous>)\n    at fulfilled (/home/t0ni/Desktop/proj-skeleton/src/controllers/AuthController.ts:5:58)',
+  timestamp: '2020-04-21T03:06:47.543Z' }
+{ error:
+   { Error: getaddrinfo ENOTFOUND proj-db proj-db:3306
+       at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)
+       --------------------
+       at Protocol._enqueue (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+       at Protocol.handshake (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:51:23)
+       at Connection.connect (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/Connection.js:119:18)
+       at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:21:9
+       at Generator.next (<anonymous>)
+       at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:8:71
+       at new Promise (<anonymous>)
+       at __awaiter (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:4:12)
+       at Object.exports.CheckDataBaseCreation (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:14:39)
+       at Object.<anonymous> (/home/t0ni/Desktop/proj-skeleton/dist/main.js:27:18)
+     errno: 'ENOTFOUND',
+     code: 'ENOTFOUND',
+     syscall: 'getaddrinfo',
+     hostname: 'proj-db',
+     host: 'proj-db',
+     port: 3306,
+     fatal: true },
+  level: 'error',
+  message:
+   'uncaughtException: getaddrinfo ENOTFOUND proj-db proj-db:3306\nError: getaddrinfo ENOTFOUND proj-db proj-db:3306\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)\n    --------------------\n    at Protocol._enqueue (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:144:48)\n    at Protocol.handshake (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:51:23)\n    at Connection.connect (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/Connection.js:119:18)\n    at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:21:9\n    at Generator.next (<anonymous>)\n    at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:4:12)\n    at Object.exports.CheckDataBaseCreation (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:14:39)\n    at Object.<anonymous> (/home/t0ni/Desktop/proj-skeleton/dist/main.js:27:18)',
+  stack:
+   'Error: getaddrinfo ENOTFOUND proj-db proj-db:3306\n    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:56:26)\n    --------------------\n    at Protocol._enqueue (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:144:48)\n    at Protocol.handshake (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js:51:23)\n    at Connection.connect (/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/Connection.js:119:18)\n    at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:21:9\n    at Generator.next (<anonymous>)\n    at /home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:8:71\n    at new Promise (<anonymous>)\n    at __awaiter (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:4:12)\n    at Object.exports.CheckDataBaseCreation (/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js:14:39)\n    at Object.<anonymous> (/home/t0ni/Desktop/proj-skeleton/dist/main.js:27:18)',
+  exception: true,
+  date:
+   'Fri Apr 24 2020 01:56:39 GMT+0200 (Eastern European Standard Time)',
+  process:
+   { pid: 3512,
+     uid: 1000,
+     gid: 1000,
+     cwd: '/home/t0ni/Desktop/proj-skeleton',
+     execPath: '/usr/local/bin/node',
+     version: 'v10.16.1',
+     argv:
+      [ '/usr/local/bin/node',
+        '/home/t0ni/Desktop/proj-skeleton/dist/main.js' ],
+     memoryUsage:
+      { rss: 75304960,
+        heapTotal: 63172608,
+        heapUsed: 26267248,
+        external: 814913 } },
+  os:
+   { loadavg: [ 5.20654296875, 4.8837890625, 3.6591796875 ],
+     uptime: 21872 },
+  trace:
+   [ { column: 26,
+       file: 'dns.js',
+       function: 'GetAddrInfoReqWrap.onlookup [as oncomplete]',
+       line: 56,
+       method: 'onlookup [as oncomplete]',
+       native: false },
+     { column: null,
+       file: '    --------------------',
+       function: null,
+       line: null,
+       method: null,
+       native: null },
+     { column: 48,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js',
+       function: 'Protocol._enqueue',
+       line: 144,
+       method: '_enqueue',
+       native: false },
+     { column: 23,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/protocol/Protocol.js',
+       function: 'Protocol.handshake',
+       line: 51,
+       method: 'handshake',
+       native: false },
+     { column: 18,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/node_modules/mysql/lib/Connection.js',
+       function: 'Connection.connect',
+       line: 119,
+       method: 'connect',
+       native: false },
+     { column: 9,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js',
+       function: null,
+       line: 21,
+       method: null,
+       native: false },
+     { column: null,
+       file: null,
+       function: 'Generator.next',
+       line: null,
+       method: 'next',
+       native: false },
+     { column: 71,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js',
+       function: null,
+       line: 8,
+       method: null,
+       native: false },
+     { column: null,
+       file: null,
+       function: 'new Promise',
+       line: null,
+       method: null,
+       native: false },
+     { column: 12,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js',
+       function: '__awaiter',
+       line: 4,
+       method: null,
+       native: false },
+     { column: 39,
+       file:
+        '/home/t0ni/Desktop/proj-skeleton/dist/jobs/database.check.js',
+       function: 'Object.exports.CheckDataBaseCreation',
+       line: 14,
+       method: 'CheckDataBaseCreation',
+       native: false },
+     { column: 18,
+       file: '/home/t0ni/Desktop/proj-skeleton/dist/main.js',
+       function: null,
+       line: 27,
+       method: null,
+       native: false } ],
+  timestamp: '2020-04-23T23:56:39.220Z' }

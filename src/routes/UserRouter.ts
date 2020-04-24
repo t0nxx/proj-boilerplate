@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { UserController } from '../controllers/UserController';
 import { AuthMiddleWare } from '../middlewares/AuthMiddleWare';
-import { asyncWrapper } from 'src/helpers/asyncWrapper';
+import { asyncWrapper } from '../helpers/asyncWrapper';
 
 const router = Router();
 const userController = new UserController();

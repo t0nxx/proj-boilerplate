@@ -6,7 +6,7 @@ module.exports = {
    "password": process.env.DBPASSWORD,
    "database": process.env.DBNAME,
    "synchronize": process.env.DBSYNC,
-   "logging": process.env.DBLOG,
+   "logging": true,
    "cache": true,
    "charset": "UTF8MB4_GENERAL_CI",
    "entities": [

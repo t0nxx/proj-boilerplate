@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Generated } from 'typeorm';
 import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 import { hash, compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
@@ -19,7 +19,8 @@ export class UserModel {
     @Column()
     password: string;
 
-    @Column({ type: 'uuid', default: '123456' })
+    @Column()
+    @Generated('uuid')
     reset_token: string;
 
     // helpers methods
